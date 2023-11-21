@@ -26,6 +26,9 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:1.0.0-rc10")
+                implementation("cafe.adriel.voyager:voyager-navigator:1.0.0-rc10")
+                implementation("cafe.adriel.voyager:voyager-transitions:1.0.0-rc10")
             }
         }
         val androidMain by getting {
@@ -65,4 +68,7 @@ android {
     kotlin {
         jvmToolchain(17)
     }
+}
+dependencies {
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
 }
