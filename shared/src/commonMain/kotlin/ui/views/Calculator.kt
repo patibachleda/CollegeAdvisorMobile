@@ -20,25 +20,36 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import ui.components.DropDown
 
-@Composable
-fun Calculator(){
-  Column (
-    horizontalAlignment = Alignment.CenterHorizontally,
-    modifier = Modifier
-      .border(1.dp, Color.Red, RectangleShape)
-      .fillMaxWidth()
-      .fillMaxHeight()
-      .padding(20.dp),
-      verticalArrangement = Arrangement.spacedBy(50.dp)){
-    Text("COLLEGE COST ANALYZER", fontSize = 25.sp, fontFamily = FontFamily.Monospace)
-    DropDown()
-    DropDown()
-    var text by remember { mutableStateOf("Click a button") }
-    Text(text)
-    Button(onClick = { text = "Button 1 Clicked" }) {
-      Text("Filled")
+class Calculator(): Screen{
+  @Composable
+  override fun Content() {
+    Column (
+      horizontalAlignment = Alignment.CenterHorizontally,
+      modifier = Modifier
+        .border(1.dp, Color.Red, RectangleShape)
+        .fillMaxWidth()
+        .fillMaxHeight()
+        .padding(20.dp),
+      verticalArrangement = Arrangement.spacedBy(50.dp)
+    )
+    {
+      val navigator: Navigator = LocalNavigator.currentOrThrow
+
+      Text("COLLEGE COST ANALYZER", fontSize = 25.sp, fontFamily = FontFamily.Monospace)
+      DropDown()
+      DropDown()
+      var text by remember { mutableStateOf("Click a button") }
+      Text(text)
+      Button(onClick = { navigator.push(Results()) }) {
+        Text("Filled")
+      }
     }
   }
+
 }

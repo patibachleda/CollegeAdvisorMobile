@@ -29,6 +29,8 @@ kotlin {
                 implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:1.0.0-rc10")
                 implementation("cafe.adriel.voyager:voyager-navigator:1.0.0-rc10")
                 implementation("cafe.adriel.voyager:voyager-transitions:1.0.0-rc10")
+                implementation("cafe.adriel.voyager:voyager-tab-navigator:1.0.0-rc10")
+
             }
         }
         val androidMain by getting {
