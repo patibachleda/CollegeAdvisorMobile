@@ -30,6 +30,9 @@ kotlin {
                 implementation("cafe.adriel.voyager:voyager-navigator:1.0.0-rc10")
                 implementation("cafe.adriel.voyager:voyager-transitions:1.0.0-rc10")
                 implementation("cafe.adriel.voyager:voyager-tab-navigator:1.0.0-rc10")
+                implementation(compose.material3)
+                implementation("media.kamel:kamel-image:0.9.0")
+                implementation("io.ktor:ktor-client-core:2.3.6")
 
             }
         }
@@ -38,6 +41,7 @@ kotlin {
                 api("androidx.activity:activity-compose:1.7.2")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.10.1")
+                implementation("io.ktor:ktor-client-android:2.3.6")
             }
         }
         val iosX64Main by getting
@@ -48,6 +52,10 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:2.3.6")
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 
-class Results(): Screen {
+class Results : Screen {
     @Composable
     override fun Content() {
         Column (
@@ -61,7 +61,7 @@ class Results(): Screen {
                 Text("Advice")
             }
             Button(onClick = { navigator.push(Results()) }) {
-                Text("Submit")
+                Text("Save Result")
             }
             Button(onClick = { navigator.pop() }) {
                 Text("Back")

@@ -26,13 +26,12 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import ui.components.DropDown
 
-class Calculator(): Screen{
+class Calculator : Screen{
   @Composable
   override fun Content() {
     Column (
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier
-        .border(1.dp, Color.Red, RectangleShape)
         .fillMaxWidth()
         .fillMaxHeight()
         .padding(20.dp),
@@ -41,13 +40,11 @@ class Calculator(): Screen{
     {
       val navigator: Navigator = LocalNavigator.currentOrThrow
 
-      Text("COLLEGE COST ANALYZER", fontSize = 25.sp, fontFamily = FontFamily.Monospace)
-      DropDown()
-      DropDown()
-      var text by remember { mutableStateOf("Click a button") }
-      Text(text)
+      Text("COLLEGE COST ANALYZER", fontSize = 25.sp, fontFamily = FontFamily.SansSerif)
+      DropDown(listOf("1", "2"), "College")
+      DropDown(listOf("1", "2"), "Major")
       Button(onClick = { navigator.push(Results()) }) {
-        Text("Filled")
+        Text("Calculate")
       }
     }
   }

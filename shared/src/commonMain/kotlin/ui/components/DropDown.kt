@@ -25,8 +25,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DropDown() {
-    val options = listOf("Option 1", "Option 2", "Option 3", "Option 4", "Option 5")
+fun DropDown(options: List<String>, title: String) {
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf(options[0]) }
 
@@ -40,7 +39,7 @@ fun DropDown() {
             readOnly = true,
             value = selectedOptionText,
             onValueChange = { },
-            label = { Text("Label") },
+            label = { Text(title) },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(
                     expanded = expanded
