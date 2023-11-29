@@ -11,10 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            Theme(){
-                MainView()
-            }
-
+            Theme { MainView()  }
         }
     }
 }
