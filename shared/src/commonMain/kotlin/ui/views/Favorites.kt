@@ -28,7 +28,9 @@ class Favorites : Screen {
                 .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(50.dp)
         ){
-            Text("SAVED RESULTS", fontSize = 30.sp, fontFamily = FontFamily.Default)
+            Text("Place icon here")
+            Text("Name edit here")
+            Text("Favorites", fontSize = 30.sp, fontFamily = FontFamily.Default)
             LazyVerticalGrid(
                 columns = GridCells.Fixed(3),
                 horizontalArrangement = Arrangement.spacedBy(5.dp),
