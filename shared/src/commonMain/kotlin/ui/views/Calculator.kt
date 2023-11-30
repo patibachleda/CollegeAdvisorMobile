@@ -40,7 +40,7 @@ class Calculator : Screen{
     {
       val navigator: Navigator = LocalNavigator.currentOrThrow
 
-      Text("COLLEGE COST ANALYZER", fontSize = 25.sp, fontFamily = FontFamily.SansSerif)
+      Text("COLLEGE COST ANALYZER", fontSize = 25.sp, fontFamily = FontFamily.Default)
       DropDown(listOf("1", "2"), "College")
       DropDown(listOf("1", "2"), "Major")
       Button(onClick = { navigator.push(Results()) }) {
