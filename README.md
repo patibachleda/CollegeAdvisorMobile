@@ -276,9 +276,6 @@ open the `iosApp/iosApp.xcworkspace` file in Xcode and make changes there.
 
 ## Next steps
 
-We encourage you to explore Compose Multiplatform further and try out more projects:
-
-* [Learn about other cases for using the Compose Multiplatform UI framework](https://github.com/JetBrains/compose-multiplatform#readme)
-* [Create an application targeting Windows, macOS, and Linux with Compose Multiplatform for Desktop](https://github.com/JetBrains/compose-multiplatform-desktop-template#readme)
-* [Complete more Compose Multiplatform tutorials](https://github.com/JetBrains/compose-multiplatform/blob/master/tutorials/README.md)
-* [Explore some more advanced Compose Multiplatform example projects](https://github.com/JetBrains/compose-multiplatform/blob/master/examples/README.md)
+Navigation: Voyager
+Shared Api: GraphQL
+DataSources:
