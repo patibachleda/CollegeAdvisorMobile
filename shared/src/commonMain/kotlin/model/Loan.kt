@@ -1,4 +1,4 @@
-package modules
+package model
 
 data class Loan (
     val amount: Double,

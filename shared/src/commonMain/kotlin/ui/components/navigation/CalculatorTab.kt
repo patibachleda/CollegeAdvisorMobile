@@ -1,23 +1,29 @@
-package ui.components
+package ui.components.navigation
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import ui.views.Calculator
 import ui.views.Favorites
-import ui.views.Home
 
-object HomeTab : Tab {
+object CalculatorTab : Tab {
 
     override val options: TabOptions
         @Composable
         get() {
-            val title = "Home"
-            val icon = rememberVectorPainter(Icons.Default.Home)
+            val title = "Calculator"
+            val icon = rememberVectorPainter(Icons.Default.Add)
 
             return remember {
                 TabOptions(
@@ -30,6 +36,6 @@ object HomeTab : Tab {
 
     @Composable
     override fun Content() {
-        Navigator(screen = Home())
+        Navigator(screen = Calculator())
     }
 }

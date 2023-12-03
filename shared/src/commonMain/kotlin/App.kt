@@ -9,9 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import ui.components.CalculatorTab
-import ui.components.FavoritesTab
-import ui.components.HomeTab
+import ui.components.navigation.CalculatorTab
+import ui.components.navigation.FavoritesTab
+import ui.components.navigation.HomeTab
+import ui.theme.backgroundColor
+import ui.theme.brown
 
 @Composable
 fun App() {
@@ -19,7 +21,7 @@ fun App() {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
                 bottomBar = {
-                    BottomNavigation (backgroundColor = Color(0xFF5CE1E6)){
+                    BottomNavigation (backgroundColor = brown){
                         TabNavigationItem(HomeTab)
                         TabNavigationItem(CalculatorTab)
                         TabNavigationItem(FavoritesTab)
