@@ -30,7 +30,7 @@ class Calculator : Screen{
   override fun Content() {
     LaunchedEffect(Unit){
       val collegeClient = CollegeClient()
-      print(collegeClient.getAllSchools())
+      print(collegeClient.getAllInformation())
     }
     Divider(color = coralPink, thickness = 5.dp)
 
