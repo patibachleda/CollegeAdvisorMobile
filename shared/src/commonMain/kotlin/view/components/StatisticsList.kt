@@ -1,4 +1,4 @@
-package ui.components
+package view.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,8 +24,9 @@ import androidx.compose.ui.unit.dp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.Blog
-import ui.theme.backgroundColor
-import ui.theme.coralPink
+import view.theme.backgroundColor
+import view.theme.coralPink
+
 
 @Composable
 fun StatisticsList(blogs: List<Blog>, title: String, color: Color) {
@@ -60,7 +62,12 @@ fun StatisticsList(blogs: List<Blog>, title: String, color: Color) {
                         )
                         Text(it.title)
                         Text(it.source)
-//                        Button(onClick = { context.startActivity(intent) }) {
+//                        Button(onClick = {
+//                            val url = "http://www.example.com"
+//                            val i = Intent(Intent.ACTION_VIEW)
+//                            i.setData(android.net.Uri.parse(url))
+//                            startActivity(i)
+//                        }) {
 //                            Text(text = "Navigate to Google!")
 //                        }
                     }

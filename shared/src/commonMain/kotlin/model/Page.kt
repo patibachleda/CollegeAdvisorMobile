@@ -1,14 +1,10 @@
 package model
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNames
 
-@Serializable
-data class Page(
-    val metadata: Metadata,
-    val results: List<Result>,
-)
-
+// General metadata at beginning of response
 @Serializable
 data class Metadata(
     val page: Long,
@@ -17,14 +13,44 @@ data class Metadata(
     val perPage: Long,
 )
 
+
+// For call to get schools in DropDown
 @Serializable
-data class Result(
+data class SchoolPage(
+    val metadata: Metadata,
+    val results: List<SchoolTitle>,
+)
+
+@Serializable
+data class SchoolTitle(
+    @JsonNames("latest.school.name", "school.name")
+    val latestSchoolName: String
+)
+
+// For call to get majors in DropDown
+@Serializable
+data class MajorPage(
+    val metadata: Metadata,
+    val results: List<JsonElement>
+)
+
+// For call to get results in Results screen
+@Serializable
+data class ResultPage(
+    val metadata: Metadata,
+    val results: List<Results>
+)
+
+@Serializable
+data class Results(
     @JsonNames("latest.school.name", "school.name")
     val latestSchoolName: String,
     @JsonNames("latest.cost.tuition.in_state")
     val latestCostTuitionInState: Long? = null,
     @JsonNames("latest.cost.tuition.out_of_state")
     val latestCostTuitionOutOfState: Long? = null,
+    @JsonNames("latest.aid.median_debt.number.overall")
+    val latestAidMedianDebtNumberOverall: Long? = null,
     @JsonNames("latest.programs.cip_4_digit")
     val latestProgramsCip4Digit: List<LatestProgramsCip4Digit>? = null,
 )

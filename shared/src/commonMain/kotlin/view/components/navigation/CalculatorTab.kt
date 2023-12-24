@@ -1,22 +1,22 @@
-package ui.components.navigation
+package view.components.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import ui.views.Favorites
+import view.screens.Calculator
 
-object FavoritesTab : Tab {
+object CalculatorTab : Tab {
 
     override val options: TabOptions
         @Composable
         get() {
-            val title = "Favorites"
-            val icon = rememberVectorPainter(Icons.Default.Star)
+            val title = "Calculator"
+            val icon = rememberVectorPainter(Icons.Default.Add)
 
             return remember {
                 TabOptions(
@@ -29,6 +29,6 @@ object FavoritesTab : Tab {
 
     @Composable
     override fun Content() {
-        Navigator(screen = Favorites())
+        Navigator(screen = Calculator())
     }
 }

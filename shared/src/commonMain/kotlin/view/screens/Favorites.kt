@@ -1,4 +1,4 @@
-package ui.views
+package view.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,10 +32,9 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import ui.theme.backgroundColor
-import ui.theme.coralPink
-import ui.theme.cyan
-import ui.theme.green
+import view.theme.coralPink
+import view.theme.cyan
+import view.theme.green
 
 class Favorites : Screen {
     @Composable

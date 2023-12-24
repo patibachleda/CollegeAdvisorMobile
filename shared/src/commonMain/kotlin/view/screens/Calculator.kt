@@ -1,4 +1,4 @@
-package ui.views
+package view.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,27 +11,39 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import api.CollegeClient
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import ui.components.DropDown
-import ui.theme.coralPink
-import ui.theme.cyan
+import view.components.DropDown
+import view.theme.coralPink
+import view.theme.cyan
+import viewModel.CalculatorVM
 
 class Calculator : Screen{
+  private var selectedSchoolParam = ""
+  private val viewModel: CalculatorVM = CalculatorVM(selectedSchoolParam)
+
   @Composable
   override fun Content() {
-    LaunchedEffect(Unit){
-      val collegeClient = CollegeClient()
-      print(collegeClient.getAllInformation())
+    var selectedSchool by remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsState()
+    val navigator = LocalNavigator.currentOrThrow
+
+    LaunchedEffect(selectedSchool) {
+      selectedSchoolParam = selectedSchool
+      viewModel.updateMajors(selectedSchool)
     }
+
     Divider(color = coralPink, thickness = 5.dp)
 
     Column (
@@ -43,28 +55,23 @@ class Calculator : Screen{
       verticalArrangement = Arrangement.spacedBy(30.dp)
     )
     {
-      val navigator: Navigator = LocalNavigator.currentOrThrow
-
 
       Text("Analyze", fontSize = 35.sp, fontFamily = FontFamily.Default)
       Divider(color = coralPink, thickness = 2.dp)
 
       Text("Step 1: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
 
-      DropDown(listOf("1", "2"), "College")
+      selectedSchool = DropDown(uiState.schools, "College")
       Text("Step 2: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
 
-      DropDown(listOf("1", "2"), "Major")
-      Text("Step 3: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
+      var selectedMajor = DropDown(uiState.majors, "Major")
+      Text("Step 2: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
 
       Button(
-        onClick = { navigator.push(Results()) },
+        onClick = { navigator.push(Results(selectedSchool, selectedMajor)) },
         colors = ButtonDefaults.buttonColors(cyan)
-      )
-      {
-        Text("Calculate")
-      }
+      ) { Text("Calculate") }
     }
   }
 
-}
+  }

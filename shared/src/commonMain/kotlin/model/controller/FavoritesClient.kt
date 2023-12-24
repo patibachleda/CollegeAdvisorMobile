@@ -1,4 +1,4 @@
-package api
+package model.controller
 
 class FavoritesClient {
 }

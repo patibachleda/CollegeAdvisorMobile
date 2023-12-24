@@ -1,4 +1,4 @@
-package ui.views
+package view.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,20 +20,20 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import api.BlogsClient
+import model.controller.BlogsClient
 import cafe.adriel.voyager.core.screen.Screen
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import ui.components.StatisticsList
-import ui.theme.backgroundColor
-import ui.theme.coralPink
+import view.components.StatisticsList
+import view.theme.coralPink
+import viewModel.HomeVM
 
 class Home : Screen{
-    private val statisticClient = BlogsClient()
+    private val viewModel = HomeVM()
 
     @Composable
     override fun Content() {
-        val statistics = statisticClient.getStatistics()
+        val statistics = viewModel.loadStatistics()
         Column (
             modifier = Modifier
                 .verticalScroll(rememberScrollState()

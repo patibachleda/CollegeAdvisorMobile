@@ -6,14 +6,12 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import ui.components.navigation.CalculatorTab
-import ui.components.navigation.FavoritesTab
-import ui.components.navigation.HomeTab
-import ui.theme.backgroundColor
-import ui.theme.brown
+import view.components.navigation.CalculatorTab
+import view.components.navigation.FavoritesTab
+import view.components.navigation.HomeTab
+import view.theme.brown
 
 @Composable
 fun App() {

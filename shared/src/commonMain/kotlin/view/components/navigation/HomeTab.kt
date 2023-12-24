@@ -1,4 +1,4 @@
-package ui.components.navigation
+package view.components.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -8,8 +8,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import ui.views.Favorites
-import ui.views.Home
+import view.screens.Home
 
 object HomeTab : Tab {
 
