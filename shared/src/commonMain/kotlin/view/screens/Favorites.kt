@@ -17,6 +17,8 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -35,11 +37,21 @@ import io.kamel.image.asyncPainterResource
 import view.theme.coralPink
 import view.theme.cyan
 import view.theme.green
+import viewModel.FavoritesVM
 
 class Favorites : Screen {
+    private val viewModel: FavoritesVM = FavoritesVM()
     @Composable
     override fun Content() {
-        var text by remember { mutableStateOf(TextFieldValue("Student")) }
+        val uiStateFavorites by viewModel.uiStateFavorites.collectAsState()
+        val uiStateName by viewModel.uiStateName.collectAsState()
+        var text by remember { mutableStateOf(TextFieldValue(viewModel.getName())) }
+
+        LaunchedEffect(text) {
+            viewModel.addName(text.text)
+            viewModel.getName()
+        }
+
         Divider(color = coralPink, thickness = 5.dp)
 
         Column (
@@ -67,7 +79,7 @@ class Favorites : Screen {
             )
             Divider(color = coralPink, thickness = 2.dp)
 
-            Text("Favorites", fontSize = 30.sp, fontFamily = FontFamily.Default)
+            Text(uiStateName.name +"'s Favorites", fontSize = 30.sp, fontFamily = FontFamily.Default)
             LazyVerticalGrid(
                 columns = GridCells.Fixed(3),
                 horizontalArrangement = Arrangement.spacedBy(10.dp),

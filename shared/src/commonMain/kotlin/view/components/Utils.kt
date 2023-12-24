@@ -1,7 +1,7 @@
 package view.components
 
 class Utils{
-    fun formatMoney(number: Long?): String {
+    private fun formatMoney(number: Long?): String {
         return "$" + number
             .toString()
             .reversed()
@@ -12,7 +12,7 @@ class Utils{
 
     fun nullDataCheck(number: Long?): String{
         return if (number?.toInt() == 0){
-            "No data available"
+            "No data"
         } else{
             formatMoney(number)
         }

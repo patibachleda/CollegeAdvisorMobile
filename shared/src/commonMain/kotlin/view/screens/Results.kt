@@ -1,11 +1,10 @@
-package ui.views
+package view.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,13 +15,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,14 +31,24 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import ui.theme.brown
-import ui.theme.coralPink
-import ui.theme.cyan
-import ui.theme.green
+import model.data.Calculator
+import view.components.Utils
+import view.theme.coralPink
+import view.theme.cyan
+import view.theme.green
+import viewModel.ResultsVM
 
-class Results : Screen {
+class Results(
+    selectedSchool: String,
+    selectedMajor: String
+) : Screen {
+    private val viewModel: ResultsVM = ResultsVM(selectedSchool, selectedMajor)
+    private val utils: Utils = Utils()
+    private val calculator: Calculator = Calculator()
     @Composable
     override fun Content() {
+        val uiState by viewModel.uiState.collectAsState()
+
         Divider(color = coralPink, thickness = 5.dp)
 
         Column (
@@ -68,7 +77,7 @@ class Results : Screen {
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                 )
-                Text("University College",
+                Text(uiState.school,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                 )
@@ -89,7 +98,7 @@ class Results : Screen {
                             .padding(0.dp, 0.dp,0.dp,20.dp)
                             .align(Alignment.CenterStart)
                     )
-                    Text("$60,000", modifier = Modifier
+                    Text(utils.nullDataCheck(uiState.tuitionInState), modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .padding(0.dp, 0.dp,0.dp,20.dp)
                     )
@@ -103,7 +112,7 @@ class Results : Screen {
                             .padding(0.dp, 0.dp,0.dp,20.dp)
                             .align(Alignment.CenterStart)
                     )
-                    Text("$60,000", modifier = Modifier
+                    Text(utils.nullDataCheck(uiState.tuitionOutState), modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .padding(0.dp, 0.dp,0.dp,20.dp)
                     )
@@ -118,7 +127,7 @@ class Results : Screen {
                             .padding(0.dp, 0.dp,0.dp,20.dp)
                             .align(Alignment.CenterStart)
                     )
-                    Text("$60,000", modifier = Modifier
+                    Text(utils.nullDataCheck(uiState.avgDebt), modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .padding(0.dp, 0.dp,0.dp,20.dp)
                     )
@@ -136,7 +145,7 @@ class Results : Screen {
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                 )
-                Text("Computer Science",
+                Text(uiState.major,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(0.dp, 0.dp,0.dp,20.dp)
@@ -157,7 +166,7 @@ class Results : Screen {
                             .padding(0.dp, 20.dp, 0.dp, 20.dp)
                             .align(Alignment.CenterStart)
                     )
-                    Text("$60,000", modifier = Modifier
+                    Text(utils.nullDataCheck(uiState.medianEarning), modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .padding(0.dp, 0.dp,0.dp,20.dp)
                     )
@@ -196,7 +205,7 @@ class Results : Screen {
                         .align(Alignment.CenterHorizontally)
                 )
                 Text("It would take you about:")
-                Text("7 years",
+                Text(calculator.calculateYears(uiState.medianEarning, uiState.avgDebt, 8.34).toString(),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                 )
@@ -227,9 +236,9 @@ class Results : Screen {
                 }
             }
 
-            Button(onClick = { navigator.push(Results()) }) {
-                Text("Save Result")
-            }
+//            Button(onClick = { navigator.push(Results(se)) }) {
+//                Text("Save Result")
+//            }
             Button(onClick = { navigator.pop() }) {
                 Text("Back")
             }

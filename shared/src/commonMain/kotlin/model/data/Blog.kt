@@ -1,4 +1,4 @@
-package model
+package model.data
 
 data class Blog (
     val image: String,

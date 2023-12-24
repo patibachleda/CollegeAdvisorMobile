@@ -1,6 +1,6 @@
 package model.controller
 
-import model.Blog
+import model.data.Blog
 
 class BlogsClient {
     fun getStatistics(): List<Blog> {

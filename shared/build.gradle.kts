@@ -39,6 +39,16 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.6")
                 api("dev.icerock.moko:mvvm-core:0.16.1") // only ViewModel, EventsDispatcher, Dispatchers.UI
                 api("dev.icerock.moko:mvvm-compose:0.16.1") // api mvvm-core, getViewModel for Compose Multiplatform
+                // #1 - Basic settings
+                implementation("com.russhwolf:multiplatform-settings-no-arg:1.1.1")
+
+                // #2 - For custom class serialization
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation("com.russhwolf:multiplatform-settings-serialization:1.1.1")
+
+                // #3 - For observing values as flows
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
+                implementation("com.russhwolf:multiplatform-settings-coroutines:1.1.1")
             }
         }
         val androidMain by getting {

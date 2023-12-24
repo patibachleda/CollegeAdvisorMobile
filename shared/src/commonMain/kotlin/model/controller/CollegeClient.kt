@@ -8,11 +8,10 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import model.MajorPage
-import model.ResultPage
-import model.Results
-import model.School
-import model.SchoolPage
+import model.data.MajorPage
+import model.data.ResultPage
+import model.data.Results
+import model.data.SchoolPage
 
 class CollegeClient {
 
@@ -20,6 +19,25 @@ class CollegeClient {
         install(ContentNegotiation){
             json()
         }
+    }
+
+    suspend fun getAllInformation(): List<String>{
+        val schools = mutableListOf<String>()
+        for(pageNumber in 0..66){
+            val response = client
+                .get("https://api.data.gov/ed/collegescorecard/v1/schools.json?" +
+                        "api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA" +
+                        "&per_page=99" +
+                        "&fields=latest.school.name" +
+                        "&page=${pageNumber}")
+                .body<SchoolPage>()
+
+            for (school in response.results){
+                schools.add(pageNumber, school.latestSchoolName)
+            }
+
+        }
+        return schools
     }
 
     fun getAllSchools(page: SchoolPage): Set<String> {
@@ -71,8 +89,8 @@ class CollegeClient {
         return getAllMajors(page)
     }
 
-    suspend fun getResults(school: String, major: String): Results {
-        return client
+    suspend fun getResults(school: String, major: String): Results? {
+        val response =  client
             .get("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
                     "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA"+
                     "&fields=latest.school.name,latest.cost.tuition.in_state," +
@@ -84,58 +102,11 @@ class CollegeClient {
                     "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree"
             )
             .body<ResultPage>()
-            .results[0]
+
+            if (response.results.isNotEmpty()){ //Error here because college api sucks, results [] if no median earnings
+                response.results[0]
+            }
+            return null
     }
-
-
-
-    fun getMockData(): List<School>{
-        return listOf(
-            School(
-                "School 1",
-                12.12,
-                13.13,
-                listOf("major 1", "major 2")
-            ),
-            School(
-                "School 2",
-                22.12,
-                23.13,
-                listOf("major 1", "major 2")
-            ),
-            School(
-                "School 3",
-                32.12,
-                33.13,
-                listOf("major 1", "major 2")
-            ),
-
-        )
-    }
-
-    fun getMockSchools(): List<String>{
-        return getMockData().map { school -> school.name }
-    }
-
-    fun getMockMajors(schoolName: String?): List<String>?{
-        return getMockData().first { school -> school.name == schoolName }.majors
-    }
-
-//    fun getAllMajors(school: String): List<String>{
-//        val majors = ArrayList<String>()
-//
-//        if (pages != null) {
-//            for (page in pages){
-//                for(result in page.results){
-//                    if (result.latestSchoolName == school){
-//                        majors.add()
-//                    }
-//                }
-//            }
-//        }
-//
-//        return majors
-//    }
-//
 
 }

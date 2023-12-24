@@ -46,7 +46,7 @@ class Home : Screen{
                 ){
                     Divider(color = coralPink, thickness = 5.dp)
                     Text(
-                        "Hi Student!",
+                        "Hi ${viewModel.getName()}!",
                         fontSize = 35.sp,
                         fontFamily = FontFamily.Default,
                         modifier = Modifier

@@ -1,4 +1,4 @@
-package model
+package model.data
 
 import kotlin.math.ln
 
@@ -14,11 +14,13 @@ class Calculator {
         val loanInt = loanInterest/100
 
         if (loanAmount != null) {
-            return -(ln(
-                1 - ((loanAmount * loanInt) /
-                        paymentAmount!!)
-            )) /
-                    (ln(1 + loanInt))
+            if (loanAmount.toInt() != 0 && paymentAmount?.toInt() != 0) {
+                return -(ln(
+                    1 - ((loanAmount * loanInt) /
+                            paymentAmount!!)
+                )) /
+                        (ln(1 + loanInt))
+            }
         }
 
         return 0.0

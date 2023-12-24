@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import schools
 import view.components.DropDown
 import view.theme.coralPink
 import view.theme.cyan
@@ -61,7 +62,7 @@ class Calculator : Screen{
 
       Text("Step 1: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
 
-      selectedSchool = DropDown(uiState.schools, "College")
+      selectedSchool = DropDown(schools.subList(0, 100).toSet(), "College")
       Text("Step 2: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
 
       var selectedMajor = DropDown(uiState.majors, "Major")

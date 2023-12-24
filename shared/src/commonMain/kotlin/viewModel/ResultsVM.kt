@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import model.Calculator
+import model.data.Calculator
 import model.controller.CollegeClient
 
 data class ResultsUiState(
@@ -48,19 +48,21 @@ class ResultsVM (school: String, major: String): ViewModel(){
     private fun getResults(){
         viewModelScope.launch {
             val results = collegeClient.getResults(_uiState.value.school, _uiState.value.major)
-            _uiState.update {
-                it.copy(
-                    tuitionInState = results.latestCostTuitionInState,
-                    tuitionOutState = results.latestCostTuitionOutOfState,
-                    avgDebt = results.latestAidMedianDebtNumberOverall,
-                    medianEarning = results.latestProgramsCip4Digit?.get(0)?.earnings?.n1Yr?.overallMedianEarnings ?: 0
-                )
-            }
-            val time = calculator.calculateYears(_uiState.value.medianEarning, _uiState.value.avgDebt, _uiState.value.interestRate)
-            _uiState.update {
-                it.copy(
-                    time = time
-                )
+            if (results != null){
+                _uiState.update {
+                    it.copy(
+                        tuitionInState = results.latestCostTuitionInState,
+                        tuitionOutState = results.latestCostTuitionOutOfState,
+                        avgDebt = results.latestAidMedianDebtNumberOverall,
+                        medianEarning = results.latestProgramsCip4Digit?.get(0)?.earnings?.n1Yr?.overallMedianEarnings ?: 0
+                    )
+                }
+                val time = calculator.calculateYears(_uiState.value.medianEarning, _uiState.value.avgDebt, _uiState.value.interestRate)
+                _uiState.update {
+                    it.copy(
+                        time = time
+                    )
+                }
             }
         }
     }

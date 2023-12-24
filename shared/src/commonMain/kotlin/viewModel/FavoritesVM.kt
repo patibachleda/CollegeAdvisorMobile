@@ -1,41 +1,61 @@
 package viewModel
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.core.screen.Screen
-import io.kamel.image.KamelImage
-import io.kamel.image.asyncPainterResource
-import view.theme.coralPink
-import view.theme.cyan
-import view.theme.green
+import dev.icerock.moko.mvvm.viewmodel.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import model.data.Favorites
+import model.sharedPreferences.FavoritesStore
+import model.sharedPreferences.NameStore
 
-class FavoritesVM (school: String, major: String){
+data class FavoritesUiState(
+    var favorites: MutableList<Favorites> = mutableListOf()
+)
+
+data class NameUiState(
+    var name: String = "Student"
+)
+
+class FavoritesVM: ViewModel(){
+    private val favoritesStore: FavoritesStore = FavoritesStore()
+    private val _uiStateFavorites = MutableStateFlow(FavoritesUiState())
+    val uiStateFavorites = _uiStateFavorites.asStateFlow()
+
+    private val nameStore: NameStore = NameStore()
+    private val _uiStateName = MutableStateFlow(NameUiState())
+    val uiStateName = _uiStateName.asStateFlow()
+
+
+    fun addFavorite(school: String, major: String, years: String){
+        favoritesStore.add(school, major, years)
+    }
+
+    fun getFavorites(school: String, major: String, years: String): String{
+        viewModelScope.launch {
+            val favorite = favoritesStore.get(school, major, years)
+            _uiStateFavorites.value.favorites.add(favorite)
+            val favorites = _uiStateFavorites.value.favorites
+            _uiStateFavorites.update {
+                it.copy(favorites = favorites)
+            }
+        }
+        return school
+    }
+
+    fun addName(name: String){
+        nameStore.add(name)
+    }
+
+    fun getName(): String{
+        val name = nameStore.get()
+
+        viewModelScope.launch {
+            _uiStateName.update {
+                it.copy(name = name)
+            }
+        }
+        return name
+    }
 
 }

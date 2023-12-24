@@ -12,7 +12,7 @@ import model.controller.CollegeClient
 
 data class SchoolsUiState(
   var selectedSchool: String = "",
-  val schools: Set<String> = emptySet(),
+  val schools: List<String> = emptyList(),
   val majors: Set<String> = emptySet()
 )
 
@@ -28,7 +28,7 @@ class CalculatorVM(selectedSchool: String): ViewModel() {
   }
 
   init {
-      updateSchools()
+//      updateSchools()
       updateMajors(selectedSchool)
   }
 
@@ -38,7 +38,7 @@ class CalculatorVM(selectedSchool: String): ViewModel() {
 
   private fun updateSchools(){
     viewModelScope.launch {
-      val schools = collegeClient.getAllSchools("Ala")
+      val schools = collegeClient.getAllInformation()
       _uiState.update {
         it.copy(schools = schools)
       }
