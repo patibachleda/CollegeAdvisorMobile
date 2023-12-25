@@ -49,6 +49,8 @@ kotlin {
                 // #3 - For observing values as flows
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
                 implementation("com.russhwolf:multiplatform-settings-coroutines:1.1.1")
+
+                implementation("androidx.datastore:datastore-preferences:1.1.0-alpha07")
             }
         }
         val androidMain by getting {

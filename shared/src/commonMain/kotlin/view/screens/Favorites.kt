@@ -3,6 +3,7 @@ package view.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -52,6 +53,10 @@ class Favorites : Screen {
             viewModel.getName()
         }
 
+        LaunchedEffect(Unit) {
+            viewModel.getFavorites()
+        }
+
         Divider(color = coralPink, thickness = 5.dp)
 
         Column (
@@ -80,28 +85,21 @@ class Favorites : Screen {
             Divider(color = coralPink, thickness = 2.dp)
 
             Text(uiStateName.name +"'s Favorites", fontSize = 30.sp, fontFamily = FontFamily.Default)
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(3),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                modifier = Modifier.fillMaxSize(),
-                content = {
-                    items(4) {
-                        Column(
-                            modifier = Modifier
-                                .background(Color.White)
-                                .border(4.dp, cyan, RoundedCornerShape(8.dp))
-                                .padding(10.dp)
 
-                        ) {
-                            Text("College")
-                            Text("Major")
-                            Text("Good or Bad")
-                        }
+            val favorites = uiStateFavorites.favorites
+            favorites.forEach {
+                Column(
+                    modifier = Modifier
+                        .background(Color.White)
+                        .border(4.dp, cyan, RoundedCornerShape(8.dp))
+                        .padding(10.dp)
 
-                    }
+                ) {
+                    Text("College: ${it.school}")
+                    Text("Major: ${it.major}")
+                    Text("Years: ${it.years}")
                 }
-            )
+            }
         }
     }
 

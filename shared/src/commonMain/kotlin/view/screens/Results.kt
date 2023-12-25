@@ -236,9 +236,14 @@ class Results(
                 }
             }
 
-//            Button(onClick = { navigator.push(Results(se)) }) {
-//                Text("Save Result")
-//            }
+            Button(onClick = {
+                viewModel.addResults(
+                    uiState.school,
+                    uiState.major,
+                    calculator.calculateYears(uiState.medianEarning, uiState.avgDebt, 8.34).toString()
+                ) }) {
+                Text("Save Result")
+            }
             Button(onClick = { navigator.pop() }) {
                 Text("Back")
             }

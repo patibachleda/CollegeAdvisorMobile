@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import model.data.Calculator
 import model.controller.CollegeClient
+import model.sharedPreferences.FavoritesStore
 
 data class ResultsUiState(
     val school: String = "",
@@ -27,6 +28,7 @@ class ResultsVM (school: String, major: String): ViewModel(){
     val uiState = _uiState.asStateFlow()
     private val collegeClient = CollegeClient()
     private val calculator = Calculator()
+    private val favoritesStore = FavoritesStore()
 
     private val client = HttpClient{
         install(ContentNegotiation){
@@ -65,6 +67,10 @@ class ResultsVM (school: String, major: String): ViewModel(){
                 }
             }
         }
+    }
+
+    fun addResults(school: String, major: String, years: String){
+        favoritesStore.add(school, major, years)
     }
 
 }
