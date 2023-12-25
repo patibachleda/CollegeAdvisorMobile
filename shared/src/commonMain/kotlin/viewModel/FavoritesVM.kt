@@ -10,7 +10,6 @@ import model.sharedPreferences.FavoritesStore
 import model.sharedPreferences.NameStore
 
 data class FavoritesUiState(
-    var numberOfFavorites: Int = 0,
     var favorites: MutableList<Favorites> = mutableListOf()
 )
 
@@ -27,15 +26,6 @@ class FavoritesVM: ViewModel(){
     private val _uiStateName = MutableStateFlow(NameUiState())
     val uiStateName = _uiStateName.asStateFlow()
 
-    fun getFavorites(){
-        viewModelScope.launch {
-            val favorites = favoritesStore.getAll()
-            _uiStateFavorites.update {
-                it.copy(favorites = favorites)
-            }
-        }
-    }
-
     fun addName(name: String){
         nameStore.add(name)
     }
@@ -49,6 +39,22 @@ class FavoritesVM: ViewModel(){
             }
         }
         return name
+    }
+
+    fun remove(school: String, major: String){
+       favoritesStore.remove(school, major)
+    }
+
+    fun getFavorites(): MutableList<Favorites>{
+        val favorites = favoritesStore.getAll()
+
+        viewModelScope.launch {
+            _uiStateFavorites.update {
+                it.copy(favorites = favorites)
+            }
+        }
+
+        return favorites
     }
 
 }

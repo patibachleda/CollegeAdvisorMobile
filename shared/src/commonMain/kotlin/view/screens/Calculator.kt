@@ -62,14 +62,14 @@ class Calculator : Screen{
 
       Text("Step 1: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
 
-      selectedSchool = DropDown(schools.subList(0, 100).toSet(), "College")
+      selectedSchool = DropDown(uiState.schools.toSet(), "College")
       Text("Step 2: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
 
       var selectedMajor = DropDown(uiState.majors, "Major")
       Text("Step 2: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
 
       Button(
-        onClick = { navigator.push(Results(selectedSchool, selectedMajor)) },
+        onClick = { navigator.push(Results(selectedSchool, selectedMajor, true)) },
         colors = ButtonDefaults.buttonColors(cyan)
       ) { Text("Calculate") }
     }

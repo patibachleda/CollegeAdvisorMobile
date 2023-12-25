@@ -8,18 +8,16 @@ import model.data.Favorites
 class FavoritesStore {
     private val settings: Settings = Settings()
 
-    fun add(school: String, major: String, years: String) {
-        settings.putString("SCHOOL_$school$major$years", school)
-        settings.putString("MAJOR_$school$major$years", major)
-        settings.putString("YEARS_$school$major$years", years)
+    fun add(school: String, major: String) {
+        settings.putString("SCHOOL_$school$major", school)
+        settings.putString("MAJOR_$school$major", major)
     }
 
-    fun get(school: String, major: String, years: String): Favorites {
-        val savedSchool = settings["SCHOOL_$school$major$years"] ?: "null"
-        val savedMajor = settings["MAJOR_$school$major$years"] ?: "null"
-        val savedYears = settings["YEARS_$school$major$years"] ?: "null"
+    fun get(school: String, major: String): Favorites {
+        val savedSchool = settings["SCHOOL_$school$major"] ?: "null"
+        val savedMajor = settings["MAJOR_$school$major"] ?: "null"
 
-        return Favorites(savedSchool, savedMajor, savedYears)
+        return Favorites(savedSchool, savedMajor)
     }
 
     fun getAll(): MutableList<Favorites> {
@@ -31,10 +29,16 @@ class FavoritesStore {
                 val keyString = key.substringAfterLast("SCHOOL_")
                 val savedSchool = settings["SCHOOL_$keyString"] ?: "null"
                 val savedMajor = settings["MAJOR_$keyString"] ?: "null"
-                val savedYears = settings["YEARS_$keyString"] ?: "null"
-                favoritesList.add(Favorites(savedSchool, savedMajor, savedYears))
+                favoritesList.add(Favorites(savedSchool, savedMajor))
             }
         }
         return favoritesList
+    }
+
+    fun remove(school: String, major: String): MutableList<Favorites>{
+        settings.remove("SCHOOL_$school$major")
+        settings.remove("MAJOR_$school$major")
+
+        return getAll()
     }
 }

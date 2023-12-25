@@ -40,7 +40,7 @@ class CollegeClient {
         return schools
     }
 
-    fun getAllSchools(page: SchoolPage): Set<String> {
+    private fun getAllSchools(page: SchoolPage): Set<String> {
         val schools = ArrayList<String>()
 
         for(result in page.results){
@@ -90,7 +90,7 @@ class CollegeClient {
     }
 
     suspend fun getResults(school: String, major: String): Results? {
-        val response =  client
+        return client
             .get("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
                     "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA"+
                     "&fields=latest.school.name,latest.cost.tuition.in_state," +
@@ -102,11 +102,12 @@ class CollegeClient {
                     "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree"
             )
             .body<ResultPage>()
+            .results[0]
 
-            if (response.results.isNotEmpty()){ //Error here because college api sucks, results [] if no median earnings
-                response.results[0]
-            }
-            return null
+//            if (response.results.isNotEmpty()){ //Error here because college api sucks, results [] if no median earnings
+//                response.results[0]
+//            }
+//            return null
     }
 
 }

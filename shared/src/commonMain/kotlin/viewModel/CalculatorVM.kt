@@ -28,7 +28,7 @@ class CalculatorVM(selectedSchool: String): ViewModel() {
   }
 
   init {
-//      updateSchools()
+      updateSchools()
       updateMajors(selectedSchool)
   }
 
@@ -38,7 +38,7 @@ class CalculatorVM(selectedSchool: String): ViewModel() {
 
   private fun updateSchools(){
     viewModelScope.launch {
-      val schools = collegeClient.getAllInformation()
+      val schools = collegeClient.getAllSchools("Ala").toList()
       _uiState.update {
         it.copy(schools = schools)
       }

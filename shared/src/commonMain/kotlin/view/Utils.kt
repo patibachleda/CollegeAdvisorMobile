@@ -1,4 +1,4 @@
-package view.components
+package view
 
 class Utils{
     private fun formatMoney(number: Long?): String {

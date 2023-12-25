@@ -26,6 +26,7 @@ data class ResultsUiState(
 class ResultsVM (school: String, major: String): ViewModel(){
     private val _uiState = MutableStateFlow(ResultsUiState())
     val uiState = _uiState.asStateFlow()
+
     private val collegeClient = CollegeClient()
     private val calculator = Calculator()
     private val favoritesStore = FavoritesStore()
@@ -69,8 +70,11 @@ class ResultsVM (school: String, major: String): ViewModel(){
         }
     }
 
-    fun addResults(school: String, major: String, years: String){
-        favoritesStore.add(school, major, years)
+    fun addResults(school: String, major: String){
+        _uiState.update {
+            it.copy(school = school, major = major)
+        }
+        favoritesStore.add(school, major)
     }
 
 }

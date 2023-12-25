@@ -32,7 +32,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.data.Calculator
-import view.components.Utils
+import view.Utils
 import view.theme.coralPink
 import view.theme.cyan
 import view.theme.green
@@ -40,11 +40,13 @@ import viewModel.ResultsVM
 
 class Results(
     selectedSchool: String,
-    selectedMajor: String
+    selectedMajor: String,
+    showSave: Boolean
 ) : Screen {
     private val viewModel: ResultsVM = ResultsVM(selectedSchool, selectedMajor)
     private val utils: Utils = Utils()
     private val calculator: Calculator = Calculator()
+    private val showSave = showSave
     @Composable
     override fun Content() {
         val uiState by viewModel.uiState.collectAsState()
@@ -236,14 +238,16 @@ class Results(
                 }
             }
 
-            Button(onClick = {
-                viewModel.addResults(
-                    uiState.school,
-                    uiState.major,
-                    calculator.calculateYears(uiState.medianEarning, uiState.avgDebt, 8.34).toString()
-                ) }) {
-                Text("Save Result")
+            if (showSave){
+                Button(onClick = {
+                    viewModel.addResults(
+                        uiState.school,
+                        uiState.major
+                    ) }) {
+                    Text("Save Result")
+                }
             }
+
             Button(onClick = { navigator.pop() }) {
                 Text("Back")
             }
