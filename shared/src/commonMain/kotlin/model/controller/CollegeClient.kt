@@ -104,6 +104,7 @@ class CollegeClient {
             .body<ResultPage>()
             .results[0]
 
+
 //            if (response.results.isNotEmpty()){ //Error here because college api sucks, results [] if no median earnings
 //                response.results[0]
 //            }

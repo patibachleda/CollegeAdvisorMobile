@@ -50,7 +50,9 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
                 implementation("com.russhwolf:multiplatform-settings-coroutines:1.1.1")
 
-                implementation("androidx.datastore:datastore-preferences:1.1.0-alpha07")
+//                implementation("androidx.datastore:datastore-preferences:1.1.0-alpha07")
+
+                api("io.github.kevinnzou:compose-webview-multiplatform:1.7.8")
             }
         }
         val androidMain by getting {

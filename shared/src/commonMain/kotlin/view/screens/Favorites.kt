@@ -98,7 +98,7 @@ class Favorites : Screen {
                 modifier = Modifier.fillMaxSize(),
                 content = {
                     items(uiStateFavorites.favorites.size) {
-                        FavoritesCard(uiStateFavorites.favorites[it])
+                        FavoritesCard(uiStateFavorites.favorites[it], viewModel)
                     }
                 }
             )

@@ -26,7 +26,7 @@ import view.theme.green
 import viewModel.FavoritesVM
 
 @Composable
-fun FavoritesCard (it: Favorites) {
+fun FavoritesCard (it: Favorites, viewModel: FavoritesVM) {
     val navigator = LocalNavigator.currentOrThrow
     val favoritesVM = FavoritesVM()
 
@@ -69,7 +69,8 @@ fun FavoritesCard (it: Favorites) {
         Button(modifier = Modifier
             .fillMaxWidth()
             .align(Alignment.End),
-            onClick = { favoritesVM.remove(it.school, it.major) },
+            onClick = { favoritesVM.remove(it.school, it.major)
+                      viewModel.getFavorites()},
             colors = ButtonDefaults.buttonColors(coralPink)
         ) {
             Text("Remove", fontSize = 12.sp)

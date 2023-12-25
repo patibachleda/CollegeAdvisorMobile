@@ -14,9 +14,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Slider
+import androidx.compose.material.SliderDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,6 +57,8 @@ class Results(
     @Composable
     override fun Content() {
         val uiState by viewModel.uiState.collectAsState()
+        val medianEarnings = uiState.medianEarning!!.toFloat()
+        var sliderPosition by remember { mutableFloatStateOf(medianEarnings) }
 
         Divider(color = coralPink, thickness = 5.dp)
 
@@ -197,14 +206,36 @@ class Results(
                 )
                 Text("Experts suggest contributing 8-10% of your salary towards your loan.")
                 Text("So... taking your expected median earning after 1 year with your degree of:")
-                Text("$60,000",
+                Text(sliderPosition.toString(),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                 )
+                Slider(
+                    value = sliderPosition,
+                    onValueChange = { sliderPosition = it },
+//                    colors = SliderDefaults.colors(
+//                        thumbColor = MaterialTheme.colorScheme.secondary,
+//                        activeTrackColor = MaterialTheme.colorScheme.secondary,
+//                        inactiveTrackColor = MaterialTheme.colorScheme.secondaryContainer,
+//                    ),
+                    steps = 3,
+                    valueRange = sliderPosition.times(.8f) .. sliderPosition.times(1.2f)
+                )
                 Text("And an interest rate of:")
-                Text("8.34 %",
+                Text(sliderPosition.toString(),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
+                )
+                Slider(
+                    value = sliderPosition,
+                    onValueChange = { sliderPosition = it },
+//                    colors = SliderDefaults.colors(
+//                        thumbColor = MaterialTheme.colorScheme.secondary,
+//                        activeTrackColor = MaterialTheme.colorScheme.secondary,
+//                        inactiveTrackColor = MaterialTheme.colorScheme.secondaryContainer,
+//                    ),
+                    steps = 3,
+                    valueRange = sliderPosition.times(.8f) .. sliderPosition.times(1.2f)
                 )
                 Text("It would take you about:")
                 Text(calculator.calculateYears(uiState.medianEarning, uiState.avgDebt, 8.34).toString(),

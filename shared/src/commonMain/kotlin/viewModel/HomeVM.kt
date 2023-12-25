@@ -11,6 +11,14 @@ class HomeVM {
         return statisticClient.getStatistics()
     }
 
+    fun loadBudgetingTips(): List<Blog>{
+        return statisticClient.getBudgetingTips()
+    }
+
+    fun loadCareerPlanning(): List<Blog>{
+        return statisticClient.getCareerPlanning()
+    }
+
     fun getName(): String{
         return favoritesVM.getName()
     }

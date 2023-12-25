@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import model.controller.BlogsClient
 import cafe.adriel.voyager.core.screen.Screen
+import com.multiplatform.webview.web.WebView
+import com.multiplatform.webview.web.rememberWebViewState
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import view.components.StatisticsList
@@ -34,6 +36,9 @@ class Home : Screen{
     @Composable
     override fun Content() {
         val statistics = viewModel.loadStatistics()
+        val budgetingTips = viewModel.loadBudgetingTips()
+        val careerPlanning = viewModel.loadCareerPlanning()
+
         Column (
             modifier = Modifier
                 .verticalScroll(rememberScrollState()
@@ -84,9 +89,9 @@ class Home : Screen{
                         fontFamily = FontFamily.Default,
                         style = TextStyle(textDecoration = TextDecoration.Underline)
                     )
-                    StatisticsList(statistics, "Student Loan Statistics", coralPink)
-                    StatisticsList(statistics, "Budgeting Tips", coralPink)
-                    StatisticsList(statistics, "Career Planning", coralPink)
+                    StatisticsList(statistics, "Student Loan Statistics")
+                    StatisticsList(budgetingTips, "Budgeting Tips")
+                    StatisticsList(careerPlanning, "Career Planning")
                 }
             }
 
