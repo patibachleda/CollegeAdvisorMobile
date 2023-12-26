@@ -205,7 +205,7 @@ class Results(
                         .align(Alignment.CenterHorizontally)
                 )
                 Text("Experts suggest contributing 8-10% of your salary towards your loan.")
-                Text("So... taking your expected median earning after 1 year with your degree of:")
+                Text("So, taking your expected median earning after 1 year with your degree of:")
                 Text(sliderPosition.toString(),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
@@ -238,7 +238,7 @@ class Results(
                     valueRange = sliderPosition.times(.8f) .. sliderPosition.times(1.2f)
                 )
                 Text("It would take you about:")
-                Text(calculator.calculateYears(uiState.medianEarning, uiState.avgDebt, 8.34).toString(),
+                Text("${calculator.calculateYears(uiState.medianEarning, uiState.avgDebt, 8.34)} years",
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                 )
@@ -258,7 +258,7 @@ class Results(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                     )
-                    Text("Try to pick a more affordable college. This one seems a little too expensive for your degree type. Consider an in-state option!",
+                    Text(calculator.displayAdvice(calculator.calculateYears(uiState.medianEarning, uiState.avgDebt, 8.34)),
                         modifier = Modifier
                             .clip(RoundedCornerShape(8.dp))
                             .background(Color.White)

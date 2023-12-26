@@ -41,15 +41,19 @@ fun StatisticsList(blogs: List<Blog>, title: String) {
         modifier = Modifier.fillMaxWidth().padding(0.dp, 25.dp, 0.dp, 25.dp),
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
-        val showBrowser = remember { mutableStateOf(false) }
         Text(title, fontFamily = FontFamily.Default)
         Divider(color = coralPink, thickness = 2.dp)
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             content = {
                 items(blogs) {
-                    val state = rememberWebViewState(it.source)
-                    BrowserView(state, showBrowser)
+                    val showBrowser = remember { mutableStateOf(false) }
+
+                    if (showBrowser.value){
+                        val state = rememberWebViewState(it.source)
+                        BrowserView(state, showBrowser)
+                    }
+
                     Column (
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally,

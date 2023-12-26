@@ -1,6 +1,7 @@
 package view.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.multiplatform.webview.web.WebView
@@ -38,26 +40,26 @@ fun BrowserView(state: WebViewState, showBrowser: MutableState<Boolean>) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(750.dp)
-                    .padding(5.dp),
+                    .border(4.dp, Color.Black, RectangleShape),
                 shape = RoundedCornerShape(16.dp),
             ) {
                 WebView(state,
                     modifier = Modifier
                         .fillMaxWidth())
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .offset(10.dp, 0.dp),
-                            horizontalArrangement = Arrangement.End,
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .offset((0).dp, (-5).dp),
+                        horizontalArrangement = Arrangement.End,
+                ) {
+                    Button(
+                        onClick = { showBrowser.value = false },
+                        colors = ButtonDefaults.buttonColors(Color.Red)
                     ) {
-                        Button(
-                            onClick = { showBrowser.value = false },
-                            colors = ButtonDefaults.buttonColors(Color.Red)
-                        ) {
-                            Text("X")
-                        }
+                        Text("X")
                     }
                 }
+            }
         }
     }
 }

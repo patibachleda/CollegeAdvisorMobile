@@ -1,6 +1,7 @@
 package model.data
 
 import kotlin.math.ln
+import kotlin.math.round
 
 class Calculator {
 
@@ -15,20 +16,20 @@ class Calculator {
 
         if (loanAmount != null) {
             if (loanAmount.toInt() != 0 && paymentAmount?.toInt() != 0) {
-                return -(ln(
+                return round( -(ln(
                     1 - ((loanAmount * loanInt) /
                             paymentAmount!!)
                 )) /
-                        (ln(1 + loanInt))
+                        (ln(1 + loanInt)))
             }
         }
 
         return 0.0
     }
 
-    fun displayAdvice(years: Int): String{
+    fun displayAdvice(years: Double): String{
         return if (years > 5){
-            "Consider a more affordable college!"
+            "Try to pick a more affordable college. This one seems a little too expensive for your degree type. Consider an in-state option!"
         } else{
             "This would be a great path for you!"
         }
