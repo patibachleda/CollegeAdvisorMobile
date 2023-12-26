@@ -16,7 +16,7 @@ data class SchoolsUiState(
   val majors: Set<String> = emptySet()
 )
 
-class CalculatorVM(selectedSchool: String): ViewModel() {
+class CalculatorVM(selectedSchool: String, subString: String): ViewModel() {
   private val _uiState = MutableStateFlow(SchoolsUiState())
   val uiState = _uiState.asStateFlow()
   private val collegeClient = CollegeClient()
@@ -28,7 +28,7 @@ class CalculatorVM(selectedSchool: String): ViewModel() {
   }
 
   init {
-      updateSchools()
+      updateSchools(subString)
       updateMajors(selectedSchool)
   }
 
@@ -36,9 +36,9 @@ class CalculatorVM(selectedSchool: String): ViewModel() {
     client.close()
   }
 
-  private fun updateSchools(){
+  fun updateSchools(subString: String){
     viewModelScope.launch {
-      val schools = collegeClient.getAllSchools("Ala").toList()
+      val schools = collegeClient.getAllSchools(subString).toList()
       _uiState.update {
         it.copy(schools = schools)
       }

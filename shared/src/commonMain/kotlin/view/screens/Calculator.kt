@@ -32,7 +32,7 @@ import viewModel.CalculatorVM
 
 class Calculator : Screen{
   private var selectedSchoolParam = ""
-  private val viewModel: CalculatorVM = CalculatorVM(selectedSchoolParam)
+  private val viewModel: CalculatorVM = CalculatorVM(selectedSchoolParam, "")
 
   @Composable
   override fun Content() {
@@ -42,6 +42,7 @@ class Calculator : Screen{
 
     LaunchedEffect(selectedSchool) {
       selectedSchoolParam = selectedSchool
+      viewModel.updateSchools(selectedSchool)
       viewModel.updateMajors(selectedSchool)
     }
 

@@ -18,7 +18,7 @@ data class ResultsUiState(
     val tuitionInState: Long? = 0,
     val tuitionOutState: Long? = 0,
     val avgDebt: Long? = 0,
-    var medianEarning: Long? = 0,
+    var medianEarning: Long? = 30000,
     val interestRate: Double = 4.5,
     val time: Double? = 0.0
 )
