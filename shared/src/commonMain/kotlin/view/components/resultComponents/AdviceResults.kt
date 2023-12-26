@@ -22,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.data.Calculator
+import view.Utils
 import view.theme.coralPink
 import view.theme.cyan
 import viewModel.ResultsUiState
@@ -32,9 +34,22 @@ import viewModel.ResultsUiState
 @Composable
 fun AdviceResults(uiState: ResultsUiState) {
     val calculator = Calculator()
-    var selectedIncome by rememberSaveable { mutableFloatStateOf(uiState.medianEarning!!.toFloat()) }
-    var selectedLoan by rememberSaveable { mutableFloatStateOf(uiState.avgDebt!!.toFloat()) }
-    var selectedInterest by rememberSaveable { mutableStateOf(uiState.interestRate.toFloat()) }
+    val utils = Utils()
+
+    var medianEarning = uiState.medianEarning!!
+    if (medianEarning == 0f){
+        medianEarning = 58862f
+    }
+    val avgDebt = uiState.avgDebt!!
+    val interest = uiState.interestRate
+
+    var selectedIncome by rememberSaveable(uiState.medianEarning) { mutableFloatStateOf(medianEarning) }
+    var selectedLoan by rememberSaveable(uiState.avgDebt) { mutableFloatStateOf(avgDebt) }
+    var selectedInterest by rememberSaveable(uiState.interestRate) { mutableFloatStateOf(interest) }
+
+    val years = calculator.calculateYears(selectedIncome, avgDebt, interest)
+    var calculatedYears by rememberSaveable(uiState.time) { mutableFloatStateOf(years) }
+
 
     Column(
     modifier = Modifier
@@ -58,30 +73,38 @@ fun AdviceResults(uiState: ResultsUiState) {
                 .align(Alignment.CenterHorizontally)
         )
         Text("Assuming your loan will be what the average at this school is")
-        Text(selectedLoan.toString(),
+        Text(utils.formatMoney(selectedLoan.toLong()),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
         )
         Slider(
             value = selectedLoan,
-            onValueChange = { selectedLoan = it },
-            valueRange = selectedLoan.times(.5f) .. selectedLoan.times(2f),
+            onValueChange = { selectedLoan = it;
+                calculatedYears = calculator.calculateYears(selectedIncome, selectedLoan, selectedInterest)
+            },
+            valueRange = avgDebt.times(.5f) .. avgDebt.times(2f),
             colors = SliderDefaults.colors(
                 thumbColor = cyan,
                 activeTrackColor = cyan,
                 inactiveTrackColor = cyan,
             ),
         )
-        Text("Experts suggest contributing 8-10% of your salary towards your loan.")
+        Text("Experts suggest contributing 8-10% of your salary towards your loan (we'll use 10% for this calculation).")
+        Text("*If there was no reported data for your major at this school, we will take the" +
+                "average salary of a college graduate of $58,862 " +
+                "[source: www.bankrate.com ]",
+            fontSize = 10.sp)
         Text("So, taking your expected median earning after 1 year with your degree of:")
-        Text(selectedIncome.toString(),
+        Text(utils.formatMoney(selectedIncome.toLong()),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
         )
         Slider(
             value = selectedIncome,
-            onValueChange = { selectedIncome = it },
-            valueRange = selectedIncome.times(.8f) .. selectedIncome.times(1.2f),
+            onValueChange = { selectedIncome = it;
+                calculatedYears = calculator.calculateYears(selectedIncome, selectedLoan, selectedInterest)
+            },
+            valueRange = medianEarning.times(.8f) .. medianEarning.times(1.3f),
             colors = SliderDefaults.colors(
                 thumbColor = cyan,
                 activeTrackColor = cyan,
@@ -89,14 +112,16 @@ fun AdviceResults(uiState: ResultsUiState) {
             ),
         )
         Text("And an interest rate of:")
-        Text(selectedInterest.toString(),
+        Text("${utils.formatOneDecimal(selectedInterest)}%",
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
         )
         Slider(
             value = selectedInterest,
-            onValueChange = { selectedInterest = it },
-            valueRange = selectedInterest.times(.8f) .. selectedInterest.times(1.2f),
+            onValueChange = { selectedInterest = it;
+                calculatedYears = calculator.calculateYears(selectedIncome, selectedLoan, selectedInterest)
+            },
+            valueRange = interest.times(.6f) .. interest.times(1.4f),
             colors = SliderDefaults.colors(
                 thumbColor = cyan,
                 activeTrackColor = cyan,
@@ -104,7 +129,7 @@ fun AdviceResults(uiState: ResultsUiState) {
             ),
         )
         Text("It would take you about:")
-        Text("${calculator.calculateYears(uiState.medianEarning, uiState.avgDebt, 8.34)} years",
+        Text("${utils.formatOneDecimal(calculatedYears)} years",
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
         )
@@ -124,7 +149,7 @@ fun AdviceResults(uiState: ResultsUiState) {
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
             )
-            Text(calculator.displayAdvice(calculator.calculateYears(uiState.medianEarning, uiState.avgDebt, 8.34)),
+            Text(calculator.displayAdvice(calculator.calculateYears(selectedIncome, selectedLoan, selectedInterest)),
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
                     .background(Color.White)

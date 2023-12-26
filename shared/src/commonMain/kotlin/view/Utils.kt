@@ -1,7 +1,10 @@
 package view
 
+import kotlinx.serialization.StringFormat
+import kotlin.math.round
+
 class Utils{
-    private fun formatMoney(number: Long?): String {
+    fun formatMoney(number: Long?): String {
         return "$" + number
             .toString()
             .reversed()
@@ -10,11 +13,15 @@ class Utils{
             .reversed()
     }
 
-    fun nullDataCheck(number: Long?): String{
-        return if (number?.toInt() == 0){
+    fun formatOneDecimal(number: Float?): Double {
+        return round(number!! * 10.0)/10.0
+    }
+
+    fun nullDataCheck(number: Float?): String{
+        return if (number == 0f){
             "No data"
         } else{
-            formatMoney(number)
+            formatMoney(number!!.toLong())
         }
     }
 }

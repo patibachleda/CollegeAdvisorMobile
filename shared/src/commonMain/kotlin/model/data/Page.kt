@@ -46,11 +46,11 @@ data class Results(
     @JsonNames("latest.school.name", "school.name")
     val latestSchoolName: String,
     @JsonNames("latest.cost.tuition.in_state")
-    val latestCostTuitionInState: Long? = null,
+    val latestCostTuitionInState: Float? = null,
     @JsonNames("latest.cost.tuition.out_of_state")
-    val latestCostTuitionOutOfState: Long? = null,
+    val latestCostTuitionOutOfState: Float? = null,
     @JsonNames("latest.aid.median_debt.number.overall")
-    val latestAidMedianDebtNumberOverall: Long? = null,
+    val latestAidMedianDebtNumberOverall: Float? = null,
     @JsonNames("latest.programs.cip_4_digit")
     val latestProgramsCip4Digit: List<LatestProgramsCip4Digit>? = null,
 )
@@ -70,5 +70,5 @@ data class Earnings(
 @Serializable
 data class n1Yr(
     @JsonNames("overall_median_earnings")
-    val overallMedianEarnings: Long? = null,
+    val overallMedianEarnings: Float? = null,
 )

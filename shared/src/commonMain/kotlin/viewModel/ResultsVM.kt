@@ -15,12 +15,12 @@ import model.sharedPreferences.FavoritesStore
 data class ResultsUiState(
     val school: String = "",
     val major: String = "",
-    val tuitionInState: Long? = 0,
-    val tuitionOutState: Long? = 0,
-    val avgDebt: Long? = 0,
-    var medianEarning: Long? = 30000,
-    val interestRate: Double = 4.5,
-    val time: Double? = 0.0
+    val tuitionInState: Float? = 0f,
+    val tuitionOutState: Float? = 0f,
+    val avgDebt: Float? = 0f,
+    var medianEarning: Float? = 0f,
+    val interestRate: Float = 4.5f,
+    val time: Float? = 0f
 )
 
 class ResultsVM (school: String, major: String): ViewModel(){
@@ -57,7 +57,7 @@ class ResultsVM (school: String, major: String): ViewModel(){
                         tuitionInState = results.latestCostTuitionInState,
                         tuitionOutState = results.latestCostTuitionOutOfState,
                         avgDebt = results.latestAidMedianDebtNumberOverall,
-                        medianEarning = results.latestProgramsCip4Digit?.get(0)?.earnings?.n1Yr?.overallMedianEarnings ?: 0
+                        medianEarning = results.latestProgramsCip4Digit?.get(0)?.earnings?.n1Yr?.overallMedianEarnings ?: 0f
                     )
                 }
                 val time = calculator.calculateYears(_uiState.value.medianEarning, _uiState.value.avgDebt, _uiState.value.interestRate)
@@ -76,5 +76,4 @@ class ResultsVM (school: String, major: String): ViewModel(){
         }
         favoritesStore.add(school, major)
     }
-
 }

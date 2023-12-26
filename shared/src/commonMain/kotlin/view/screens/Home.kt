@@ -90,8 +90,8 @@ class Home : Screen{
                         style = TextStyle(textDecoration = TextDecoration.Underline)
                     )
                     StatisticsList(statistics, "Student Loan Statistics")
-                    StatisticsList(budgetingTips, "Budgeting Tips")
-                    StatisticsList(careerPlanning, "Career Planning")
+                    StatisticsList(budgetingTips, "Choosing a College")
+                    StatisticsList(careerPlanning, "Choosing a Major")
                 }
             }
 

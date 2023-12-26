@@ -43,11 +43,11 @@ kotlin {
                 implementation("com.russhwolf:multiplatform-settings-no-arg:1.1.1")
 
                 // #2 - For custom class serialization
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
                 implementation("com.russhwolf:multiplatform-settings-serialization:1.1.1")
 
                 // #3 - For observing values as flows
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 implementation("com.russhwolf:multiplatform-settings-coroutines:1.1.1")
 
 //                implementation("androidx.datastore:datastore-preferences:1.1.0-alpha07")
@@ -57,9 +57,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.7.2")
-                api("androidx.appcompat:appcompat:1.4.2")
-                api("androidx.core:core-ktx:1.10.1")
+                api("androidx.activity:activity-compose:1.8.2")
+                api("androidx.appcompat:appcompat:1.6.1")
+                api("androidx.core:core-ktx:1.12.0")
                 implementation("io.ktor:ktor-client-android:2.3.6")
             }
         }
@@ -99,5 +99,5 @@ android {
     }
 }
 dependencies {
-    implementation("androidx.navigation:navigation-runtime-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.6")
 }

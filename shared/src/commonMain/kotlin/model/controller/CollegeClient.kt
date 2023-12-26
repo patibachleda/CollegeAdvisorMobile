@@ -1,9 +1,11 @@
 package model.controller
 
+import io.kamel.core.utils.URL
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
+import io.ktor.http.Url
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
@@ -91,7 +93,7 @@ class CollegeClient {
 
     suspend fun getResults(school: String, major: String): Results? {
         return client
-            .get("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
+            .get(Url("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
                     "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA"+
                     "&fields=latest.school.name,latest.cost.tuition.in_state," +
                     "latest.cost.tuition.out_of_state,latest.programs.cip_4_digit.title," +
@@ -99,7 +101,7 @@ class CollegeClient {
                     "latest.aid.median_debt.number.overall" +
                     "&latest.school.name=${school}"+
                     "&latest.programs.cip_4_digit.title=${major}."+
-                    "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree"
+                    "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree")
             )
             .body<ResultPage>()
             .results[0]
