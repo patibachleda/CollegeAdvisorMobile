@@ -32,7 +32,6 @@ import io.kamel.image.asyncPainterResource
 import model.data.Blog
 import view.theme.backgroundColor
 import view.theme.coralPink
-import view.theme.cyan
 
 
 @Composable

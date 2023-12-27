@@ -2,10 +2,11 @@ package viewModel
 
 import model.clients.BlogsClient
 import model.data.Blog
+import model.sharedPreferences.NameStore
 
 class HomeVM {
     private val statisticClient = BlogsClient()
-    private val favoritesVM = FavoritesVM()
+    private val nameStore: NameStore = NameStore()
 
     fun loadStatistics(): List<Blog>{
         return statisticClient.getStatistics()
@@ -20,7 +21,7 @@ class HomeVM {
     }
 
     fun getName(): String{
-        return favoritesVM.getName()
+        return nameStore.get()
     }
 
 }

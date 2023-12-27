@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import schools
 import view.components.DropDown
 import view.theme.coralPink
 import view.theme.cyan
