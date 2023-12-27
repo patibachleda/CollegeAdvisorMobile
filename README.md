@@ -279,3 +279,29 @@ open the `iosApp/iosApp.xcworkspace` file in Xcode and make changes there.
 Navigation: Voyager
 Shared Api: GraphQL
 DataSources:
+
+## Set up the environment
+is an app intended to help high school students make a financially smart decision when choosing a university and career path. 
+
+The app is made up of four main screens:
+
+1. Home screen displays a welcome with the student's name and provides 9 articles that can be read in the app about categories such as Student Loan Debt, Choosing A College, and Choosing a Major.
+
+2. The calculator screen first starts with a screen to take in the user's desired school and major at that school. The majors are specific to the school selected. After selecting a school and a major the user will be redirected to a Results screen upon clicking "Calculate"
+
+3. The Results screen summarizes important financial information a student would need to make a decision about a
+   
+5. The Favorites Screen allows the user to edit their name (that will dipslay on this screen and on the Home screen) and access their saved searches. The user can also remove favorites here. Clicking on the View More will load a Results screen from the selected school and major so the student can easily compare their options.
+
+## MVVM 
+This app's architecture follow the Model-ViewModel-Model Architecture to ensure that views do not handle state changes:
+
+![Screenshot 2023-12-27 at 1 06 36 PM](https://github.com/patibachleda/CollegeCalc/assets/58675259/b94b5f83-6da9-41f0-9207-e6507b7a3cac)
+
+## Libraries used:
+Navigation: Voyager
+Data store:  com.russhwolf.settings
+Web View: io.github.kevinnzou
+HTTP Client/Serialization: Ktor
+ViewModel: dev.icerock.moko
+
