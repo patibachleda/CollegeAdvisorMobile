@@ -298,6 +298,10 @@ This app's architecture follow the Model-ViewModel-Model Architecture to ensure 
 
 ![Screenshot 2023-12-27 at 1 06 36 PM](https://github.com/patibachleda/CollegeCalc/assets/58675259/b94b5f83-6da9-41f0-9207-e6507b7a3cac)
 
+## Data Source
+All data comes from College Scorecard API
+https://collegescorecard.ed.gov/data/documentation/
+
 ## Libraries used:
 Navigation: Voyager
 Data store:  com.russhwolf.settings
