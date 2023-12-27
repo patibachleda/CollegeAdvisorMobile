@@ -32,7 +32,7 @@ import viewModel.CalculatorVM
 
 class Calculator : Screen{
   private var selectedSchoolParam = ""
-  private val viewModel: CalculatorVM = CalculatorVM(selectedSchoolParam, "")
+  private val viewModel: CalculatorVM = CalculatorVM(selectedSchoolParam)
 
   @Composable
   override fun Content() {
@@ -66,11 +66,13 @@ class Calculator : Screen{
       selectedSchool = DropDown(uiState.schools.toSet(), "College")
       Text("Step 2: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
 
-      var selectedMajor = DropDown(uiState.majors, "Major")
+      val selectedMajor = DropDown(uiState.majors.keys.toSet(), "Major")
       Text("Step 3: ", fontSize = 25.sp, fontFamily = FontFamily.Default, modifier = Modifier.align(Alignment.Start))
 
+      val code = uiState.majors[selectedMajor]
+
       Button(
-        onClick = { navigator.push(Results(selectedSchool, selectedMajor, true)) },
+        onClick = { navigator.push(Results(selectedSchool, selectedMajor, code, true)) },
         colors = ButtonDefaults.buttonColors(cyan)
       ) { Text("Calculate") }
     }

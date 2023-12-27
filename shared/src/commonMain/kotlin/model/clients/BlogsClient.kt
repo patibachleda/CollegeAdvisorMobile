@@ -1,4 +1,4 @@
-package model.controller
+package model.clients
 
 import model.data.Blog
 

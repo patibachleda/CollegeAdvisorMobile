@@ -1,6 +1,6 @@
 package viewModel
 
-import model.controller.BlogsClient
+import model.clients.BlogsClient
 import model.data.Blog
 
 class HomeVM {

@@ -20,10 +20,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import model.controller.BlogsClient
 import cafe.adriel.voyager.core.screen.Screen
-import com.multiplatform.webview.web.WebView
-import com.multiplatform.webview.web.rememberWebViewState
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import view.components.StatisticsList

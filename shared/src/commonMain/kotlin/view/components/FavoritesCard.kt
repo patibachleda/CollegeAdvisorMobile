@@ -60,7 +60,7 @@ fun FavoritesCard (it: Favorites, viewModel: FavoritesVM) {
         Button(modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterHorizontally),
-                onClick = { navigator.push(Results(it.school, it.major, false)) },
+                onClick = { navigator.push(Results(it.school, it.major, it.code, false)) },
                 colors = ButtonDefaults.buttonColors(cyan)
         ) {
             Text("View Details", fontSize = 12.sp)

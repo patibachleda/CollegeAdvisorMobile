@@ -9,12 +9,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import model.data.Calculator
-import model.controller.CollegeClient
+import model.clients.CollegeClient
 import model.sharedPreferences.FavoritesStore
 
 data class ResultsUiState(
     val school: String = "",
     val major: String = "",
+    val code: String = "",
     val tuitionInState: Float? = 0f,
     val tuitionOutState: Float? = 0f,
     val avgDebt: Float? = 0f,
@@ -23,7 +24,7 @@ data class ResultsUiState(
     val time: Float? = 0f
 )
 
-class ResultsVM (school: String, major: String): ViewModel(){
+class ResultsVM (school: String, major: String, code: String?): ViewModel(){
     private val _uiState = MutableStateFlow(ResultsUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -41,6 +42,11 @@ class ResultsVM (school: String, major: String): ViewModel(){
         _uiState.update {
             it.copy(school = school, major = major)
         }
+        if (code != null){
+            _uiState.update {
+                it.copy(code = code)
+            }
+        }
         getResults()
     }
 
@@ -50,7 +56,7 @@ class ResultsVM (school: String, major: String): ViewModel(){
 
     private fun getResults(){
         viewModelScope.launch {
-            val results = collegeClient.getResults(_uiState.value.school, _uiState.value.major)
+            val results = collegeClient.getResults(_uiState.value.school, _uiState.value.code)
             if (results != null){
                 _uiState.update {
                     it.copy(
@@ -60,7 +66,14 @@ class ResultsVM (school: String, major: String): ViewModel(){
                         medianEarning = results.latestProgramsCip4Digit?.get(0)?.earnings?.n1Yr?.overallMedianEarnings ?: 0f
                     )
                 }
-                val time = calculator.calculateYears(_uiState.value.medianEarning, _uiState.value.avgDebt, _uiState.value.interestRate)
+                var time = 0f
+                if (_uiState.value.medianEarning == 0f){
+                    time = calculator.calculateYears(58862f, _uiState.value.avgDebt, _uiState.value.interestRate)
+                }
+                else{
+                    time = calculator.calculateYears(_uiState.value.medianEarning, _uiState.value.avgDebt, _uiState.value.interestRate)
+
+                }
                 _uiState.update {
                     it.copy(
                         time = time
@@ -70,10 +83,10 @@ class ResultsVM (school: String, major: String): ViewModel(){
         }
     }
 
-    fun addResults(school: String, major: String){
+    fun addResults(school: String, major: String, code: String){
         _uiState.update {
-            it.copy(school = school, major = major)
+            it.copy(school = school, major = major, code = code)
         }
-        favoritesStore.add(school, major)
+        favoritesStore.add(school, major, code)
     }
 }

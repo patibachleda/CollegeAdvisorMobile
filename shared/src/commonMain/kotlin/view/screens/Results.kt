@@ -32,9 +32,10 @@ import viewModel.ResultsVM
 class Results(
     selectedSchool: String,
     selectedMajor: String,
+    code: String?,
     private val showSave: Boolean
 ) : Screen {
-    private val viewModel: ResultsVM = ResultsVM(selectedSchool, selectedMajor)
+    private val viewModel: ResultsVM = ResultsVM(selectedSchool, selectedMajor, code)
 
     @Composable
     override fun Content() {
@@ -61,7 +62,8 @@ class Results(
                     onClick = {
                         viewModel.addResults(
                             uiState.school,
-                            uiState.major
+                            uiState.major,
+                            uiState.code
                         ) },
                     colors = ButtonDefaults.buttonColors(backgroundColor)) {
                     Text("Save Result")

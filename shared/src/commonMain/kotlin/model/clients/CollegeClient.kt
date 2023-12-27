@@ -1,15 +1,11 @@
-package model.controller
+package model.clients
 
-import io.kamel.core.utils.URL
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.http.Url
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.json.jsonArray
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
 import model.data.MajorPage
 import model.data.ResultPage
 import model.data.Results
@@ -52,21 +48,18 @@ class CollegeClient {
         return schools.toSet()
     }
 
-    private fun getAllMajors(page: MajorPage): Set<String>{
-        val majors = ArrayList<String>()
+    private fun getAllMajors(page: MajorPage): HashMap<String, String>{
+        val majors = HashMap<String, String>()
 
         for(result in page.results){
-            for(values in result.jsonObject.values) {
-                for (major in values.jsonArray) {
-                    if (major.jsonObject.values.toMutableList()[0].jsonPrimitive.content.isNotBlank()) {
-                        majors.add(major.jsonObject.values.toMutableList()[0].jsonPrimitive.content.replace(".", ""))
-                    }
-
-                }
+            for(values in result.latestProgramsCip4Digit!!) {
+                val title = values.title.replace(".", "")
+                val code = values.code
+                majors[title] = code
             }
         }
 
-        return majors.toSet()
+        return majors
     }
 
     suspend fun getAllSchools(school: String): Set<String> {
@@ -80,18 +73,18 @@ class CollegeClient {
             return getAllSchools(page)
     }
 
-    suspend fun getAllMajors(school: String): Set<String> {
+    suspend fun getAllMajors(school: String): HashMap<String, String> {
         val page =  client
             .get("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
                     "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA"+
-                    "&fields=latest.programs.cip_4_digit.title"+
+                    "&fields=latest.programs.cip_4_digit.title,latest.programs.cip_4_digit.code"+
                     "&latest.school.name=${school}"+
                     "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree")
             .body<MajorPage>()
         return getAllMajors(page)
     }
 
-    suspend fun getResults(school: String, major: String): Results? {
+    suspend fun getResults(school: String, code: String): Results? {
         return client
             .get(Url("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
                     "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA"+
@@ -100,17 +93,11 @@ class CollegeClient {
                     "latest.programs.cip_4_digit.earnings.1_yr.overall_median_earnings," +
                     "latest.aid.median_debt.number.overall" +
                     "&latest.school.name=${school}"+
-                    "&latest.programs.cip_4_digit.title=${major}."+
+                    "&latest.programs.cip_4_digit.code=${code}"+
                     "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree")
             )
             .body<ResultPage>()
             .results[0]
-
-
-//            if (response.results.isNotEmpty()){ //Error here because college api sucks, results [] if no median earnings
-//                response.results[0]
-//            }
-//            return null
     }
 
 }

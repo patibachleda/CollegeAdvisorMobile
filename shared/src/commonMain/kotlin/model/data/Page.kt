@@ -1,6 +1,7 @@
 package model.data
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNames
 
@@ -31,7 +32,19 @@ data class SchoolTitle(
 @Serializable
 data class MajorPage(
     val metadata: Metadata,
-    val results: List<JsonElement>
+    val results: List<ResultList>
+)
+
+@Serializable
+data class ResultList(
+    @JsonNames("latest.programs.cip_4_digit")
+    val latestProgramsCip4Digit: List<Major>? = null,
+)
+
+@Serializable
+data class Major(
+    val title: String,
+    val code: String,
 )
 
 // For call to get results in Results screen
