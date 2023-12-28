@@ -282,7 +282,8 @@ DataSources:
 
 ## Set up the environment
 is an app intended to help high school students make a financially smart decision when choosing a university and career path. 
-[![Demo Video]](https://www.youtube.com/watch?v=9c10oLVYr6k)
+[![Demo Video](https://img.youtube.com/vi/9c10oLVYr6k/0.jpg)](https://www.youtube.com/watch?v=9c10oLVYr6kE)
+
 The app is made up of four main screens:
 
 1. Home screen displays a welcome with the student's name and provides 9 articles that can be read in the app about categories such as Student Loan Debt, Choosing A College, and Choosing a Major.
