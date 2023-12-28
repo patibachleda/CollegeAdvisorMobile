@@ -52,10 +52,6 @@ To run your application on an Android emulator:
 2. In the list of run configurations, select `androidApp`.
 3. Choose your virtual device and click **Run**:
 
-   <img src="readme_images/run_on_android.png" height="60px">
-
-   <img src="readme_images/android_app_running.png" height="200px">
-
 <details>
   <summary>Alternatively, use Gradle</summary>
 
@@ -70,17 +66,10 @@ To install an Android application on a real Android device or an emulator, run `
 To run your application on an iOS simulator in Android Studio, modify the `iosApp` run configuration:
 
 1. In the list of run configurations, select **Edit Configurations**:
-
-   <img src="readme_images/edit_run_config.png" height="200px">
-
 2. Navigate to **iOS Application** | **iosApp**.
 3. In the **Execution target** list, select your target device. Click **OK**:
-
-   <img src="readme_images/target_device.png">
-
 4. The `iosApp` run configuration is now available. Click **Run** next to your virtual device:
 
-<img src="readme_images/hello_world_ios.png" height="200px">
 
 #### Running on a real device
 
