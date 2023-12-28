@@ -14,7 +14,7 @@ The app is made up of four main screens:
    
 5. The Favorites Screen allows the user to edit their name (that will display on this screen and the Home screen) and access their saved searches. The user can also remove favorites here. Clicking on the View More will load a Results screen from the selected school and major so the student can easily compare their options.
 
-## MVVM 
+## Architecture 
 This app's architecture follows the Model-ViewModel-Model Architecture to ensure that views do not handle state changes:
 
 ![Screenshot 2023-12-27 at 1 06 36 PM](https://github.com/patibachleda/CollegeCalc/assets/58675259/b94b5f83-6da9-41f0-9207-e6507b7a3cac)
