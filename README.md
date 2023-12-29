@@ -1,5 +1,5 @@
 
-## College Advisor Mobile
+# College Advisor Mobile
 ![image](https://github.com/patibachleda/CollegeCalc/assets/58675259/cc89297e-b6bc-483e-ad31-c2cc34ababa7)
 
 College Advisor Mobile is an app intended to help high school students make financially smart decisions when choosing a university and career path. The app allows you to search all 6343 universities in the United States and select the major that is offered at the selected university. Then, the app will give you an analysis of your decision including how long it would take you to pay off any loans you might have to take. Below is a demo video showcasing the features:
