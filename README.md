@@ -24,11 +24,14 @@ All data comes from the College Scorecard API
 https://collegescorecard.ed.gov/data/documentation/
 
 ## Libraries used:
-Navigation: Voyager
-Data store:  com.russhwolf.settings
-Web View: io.github.kevinnzou
-HTTP Client/Serialization: Ktor
-ViewModel: dev.icerock.moko
+
+|      Use      |     Source    |
+| ------------- | ------------- |
+|  Navigation  |    Voyager    |
+|  Data store  | com.russhwolf.settings  |
+|   Web View   | io.github.kevinnzou  |
+| HTTP Client/Serialization  | Ktor  |
+|   ViewModel  | dev.icerock.moko  |
 
 ## Set up the environment
 
