@@ -48,14 +48,16 @@ class CollegeClient {
         return schools.toSet()
     }
 
-    private fun getAllMajors(page: MajorPage): HashMap<String, String>{
+    private fun getAllMajors(page: MajorPage, school: String): HashMap<String, String>{
         val majors = HashMap<String, String>()
 
         for(result in page.results){
-            for(values in result.latestProgramsCip4Digit!!) {
-                val title = values.title.replace(".", "")
-                val code = values.code
-                majors[title] = code
+            if(result.latestSchoolName == school){
+                for(values in result.latestProgramsCip4Digit!!) {
+                    val title = values.title.replace(".", "")
+                    val code = values.code
+                    majors[title] = code
+                }
             }
         }
 
@@ -64,24 +66,24 @@ class CollegeClient {
 
     suspend fun getAllSchools(school: String): Set<String> {
         val page =  client
-            .get("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
+            .get(Url("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
                     "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA" +
                     "&fields=latest.school.name" +
-                    "&latest.school.name=${school}" +
-                    "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree")
+                    "&latest.school.name=${school.replace("&", "%26")}" +
+                    "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree"))
             .body<SchoolPage>()
             return getAllSchools(page)
     }
 
     suspend fun getAllMajors(school: String): HashMap<String, String> {
         val page =  client
-            .get("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
+            .get(Url("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
                     "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA"+
-                    "&fields=latest.programs.cip_4_digit.title,latest.programs.cip_4_digit.code"+
-                    "&latest.school.name=${school}"+
-                    "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree")
+                    "&fields=latest.school.name,latest.programs.cip_4_digit.title,latest.programs.cip_4_digit.code"+
+                    "&latest.school.name=${school.replace("&", "%26")}"+
+                    "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree"))
             .body<MajorPage>()
-        return getAllMajors(page)
+        return getAllMajors(page, school)
     }
 
     suspend fun getResults(school: String, code: String): Results? {
@@ -92,7 +94,7 @@ class CollegeClient {
                     "latest.cost.tuition.out_of_state,latest.programs.cip_4_digit.title," +
                     "latest.programs.cip_4_digit.earnings.1_yr.overall_median_earnings," +
                     "latest.aid.median_debt.number.overall" +
-                    "&latest.school.name=${school}"+
+                    "&latest.school.name=${school.replace("&", "%26")}"+
                     "&latest.programs.cip_4_digit.code=${code}"+
                     "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree")
             )

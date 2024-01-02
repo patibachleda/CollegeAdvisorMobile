@@ -37,6 +37,8 @@ data class MajorPage(
 
 @Serializable
 data class ResultList(
+    @JsonNames("latest.school.name", "school.name")
+    val latestSchoolName: String,
     @JsonNames("latest.programs.cip_4_digit")
     val latestProgramsCip4Digit: List<Major>? = null,
 )
