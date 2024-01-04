@@ -83,3 +83,6 @@ To do so, you'll need the following:
 
 * The `TEAM_ID` associated with your [Apple ID](https://support.apple.com/en-us/HT204316)
 * The iOS device registered in Xcode
+
+#### License
+Apache 2.0
