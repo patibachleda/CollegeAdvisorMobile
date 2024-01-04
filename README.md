@@ -29,11 +29,11 @@ https://collegescorecard.ed.gov/data/documentation/
 
 |      Use      |     Source    |
 | ------------- | ------------- |
-|  Navigation  |    Voyager    |
-|  Data store  | com.russhwolf.settings  |
-|   Web View   | io.github.kevinnzou  |
+|  Navigation  |    adrielcafe’s Voyager    |
+|  Data store  | russhwolf's multiplatform-settings  |
+|   Web View   | kevinnzou's compose-webview-multiplatform |
 | HTTP Client/Serialization  | Ktor  |
-|   ViewModel  | dev.icerock.moko  |
+|   ViewModel  | IceRock's moko-mvvm  |
 
 ## Set up the environment
 
