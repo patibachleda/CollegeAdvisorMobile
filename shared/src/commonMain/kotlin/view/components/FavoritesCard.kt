@@ -69,7 +69,7 @@ fun FavoritesCard (it: Favorites, viewModel: FavoritesVM) {
         Button(modifier = Modifier
             .fillMaxWidth()
             .align(Alignment.End),
-            onClick = { favoritesVM.remove(it.school, it.major)
+            onClick = { favoritesVM.removeFavorite(it.school, it.major)
                       viewModel.getFavorites()},
             colors = ButtonDefaults.buttonColors(coralPink)
         ) {

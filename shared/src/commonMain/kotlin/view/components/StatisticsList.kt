@@ -30,8 +30,8 @@ import com.multiplatform.webview.web.rememberWebViewState
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.data.Blog
-import view.theme.backgroundColor
 import view.theme.coralPink
+import view.theme.green
 
 
 @Composable
@@ -59,7 +59,7 @@ fun StatisticsList(blogs: List<Blog>, title: String) {
                         modifier = Modifier
                             .clip(RoundedCornerShape(8.dp))
                             .background(Color.White)
-                            .border(15.dp, backgroundColor, RoundedCornerShape(8.dp))
+                            .border(15.dp, green, RoundedCornerShape(8.dp))
                             .height(300.dp)
                             .width(170.dp)
                             .padding(20.dp)

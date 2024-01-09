@@ -20,7 +20,7 @@ data class ResultsUiState(
     val tuitionOutState: Float? = 0f,
     val avgDebt: Float? = 0f,
     var medianEarning: Float? = 0f,
-    val interestRate: Float = 4.5f,
+    val interestRate: Float = 5.8f,
     val time: Float? = 0f
 )
 
@@ -66,12 +66,11 @@ class ResultsVM (school: String, major: String, code: String?): ViewModel(){
                         medianEarning = results.latestProgramsCip4Digit?.get(0)?.earnings?.n1Yr?.overallMedianEarnings ?: 0f
                     )
                 }
-                var time = 0f
-                if (_uiState.value.medianEarning == 0f){
-                    time = calculator.calculateYears(58862f, _uiState.value.avgDebt, _uiState.value.interestRate)
-                }
-                else{
-                    time = calculator.calculateYears(_uiState.value.medianEarning, _uiState.value.avgDebt, _uiState.value.interestRate)
+
+                val time = if(_uiState.value.medianEarning == 0f){
+                    calculator.calculateYears(58862f, _uiState.value.avgDebt, _uiState.value.interestRate)
+                } else{
+                    calculator.calculateYears(_uiState.value.medianEarning, _uiState.value.avgDebt, _uiState.value.interestRate)
 
                 }
                 _uiState.update {

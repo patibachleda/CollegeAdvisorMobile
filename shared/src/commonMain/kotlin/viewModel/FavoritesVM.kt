@@ -41,7 +41,7 @@ class FavoritesVM: ViewModel(){
         return name
     }
 
-    fun remove(school: String, major: String){
+    fun removeFavorite(school: String, major: String){
        favoritesStore.remove(school, major)
     }
 

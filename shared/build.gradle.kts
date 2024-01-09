@@ -34,24 +34,16 @@ kotlin {
                 implementation(compose.material3)
                 implementation("media.kamel:kamel-image:0.9.0")
                 implementation("io.ktor:ktor-client-core:2.3.6")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
                 implementation("io.ktor:ktor-client-content-negotiation:2.3.6")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.6")
                 api("dev.icerock.moko:mvvm-core:0.16.1") // only ViewModel, EventsDispatcher, Dispatchers.UI
                 api("dev.icerock.moko:mvvm-compose:0.16.1") // api mvvm-core, getViewModel for Compose Multiplatform
-                // #1 - Basic settings
                 implementation("com.russhwolf:multiplatform-settings-no-arg:1.1.1")
-
-                // #2 - For custom class serialization
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
                 implementation("com.russhwolf:multiplatform-settings-serialization:1.1.1")
-
-                // #3 - For observing values as flows
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 implementation("com.russhwolf:multiplatform-settings-coroutines:1.1.1")
-
-//                implementation("androidx.datastore:datastore-preferences:1.1.0-alpha07")
-
                 api("io.github.kevinnzou:compose-webview-multiplatform:1.7.8")
             }
         }

@@ -12,7 +12,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import view.theme.backgroundColor
 
 
 @OptIn(ExperimentalMaterialApi::class)

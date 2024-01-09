@@ -19,23 +19,15 @@ class CollegeClient {
         }
     }
 
-    suspend fun getAllInformation(): List<String>{
-        val schools = mutableListOf<String>()
-        for(pageNumber in 0..66){
-            val response = client
-                .get("https://api.data.gov/ed/collegescorecard/v1/schools.json?" +
-                        "api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA" +
-                        "&per_page=99" +
-                        "&fields=latest.school.name" +
-                        "&page=${pageNumber}")
-                .body<SchoolPage>()
-
-            for (school in response.results){
-                schools.add(pageNumber, school.latestSchoolName)
-            }
-
-        }
-        return schools
+    suspend fun getAllSchools(school: String): Set<String> {
+        val page =  client
+            .get(Url("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
+                    "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA" +
+                    "&fields=latest.school.name" +
+                    "&latest.school.name=${school.replace("&", "%26")}" +
+                    "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree"))
+            .body<SchoolPage>()
+            return getAllSchools(page)
     }
 
     private fun getAllSchools(page: SchoolPage): Set<String> {
@@ -46,6 +38,17 @@ class CollegeClient {
         }
 
         return schools.toSet()
+    }
+
+    suspend fun getAllMajors(school: String): HashMap<String, String> {
+        val page =  client
+            .get(Url("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
+                    "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA"+
+                    "&fields=latest.school.name,latest.programs.cip_4_digit.title,latest.programs.cip_4_digit.code"+
+                    "&latest.school.name=${school.replace("&", "%26")}"+
+                    "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree"))
+            .body<MajorPage>()
+        return getAllMajors(page, school)
     }
 
     private fun getAllMajors(page: MajorPage, school: String): HashMap<String, String>{
@@ -62,28 +65,6 @@ class CollegeClient {
         }
 
         return majors
-    }
-
-    suspend fun getAllSchools(school: String): Set<String> {
-        val page =  client
-            .get(Url("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
-                    "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA" +
-                    "&fields=latest.school.name" +
-                    "&latest.school.name=${school.replace("&", "%26")}" +
-                    "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree"))
-            .body<SchoolPage>()
-            return getAllSchools(page)
-    }
-
-    suspend fun getAllMajors(school: String): HashMap<String, String> {
-        val page =  client
-            .get(Url("https://api.data.gov/ed/collegescorecard/v1/schools.json" +
-                    "?api_key=vZUjtZ3hp42sXZtRqL7vVImTI2Z0paH79LlyffSA"+
-                    "&fields=latest.school.name,latest.programs.cip_4_digit.title,latest.programs.cip_4_digit.code"+
-                    "&latest.school.name=${school.replace("&", "%26")}"+
-                    "&latest.programs.cip_4_digit.credential.title=Bachelor's Degree"))
-            .body<MajorPage>()
-        return getAllMajors(page, school)
     }
 
     suspend fun getResults(school: String, code: String): Results? {

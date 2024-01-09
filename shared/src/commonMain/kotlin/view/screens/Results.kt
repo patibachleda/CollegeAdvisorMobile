@@ -24,9 +24,9 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import view.components.resultComponents.AdviceResults
 import view.components.resultComponents.CollegeResults
 import view.components.resultComponents.MajorResults
-import view.theme.backgroundColor
 import view.theme.coralPink
 import view.theme.cyan
+import view.theme.green
 import viewModel.ResultsVM
 
 class Results(
@@ -65,7 +65,7 @@ class Results(
                             uiState.major,
                             uiState.code
                         ) },
-                    colors = ButtonDefaults.buttonColors(backgroundColor)) {
+                    colors = ButtonDefaults.buttonColors(green)) {
                     Text("Save Result")
                 }
             }

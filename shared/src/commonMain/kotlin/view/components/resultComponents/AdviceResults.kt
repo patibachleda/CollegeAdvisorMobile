@@ -82,7 +82,7 @@ fun AdviceResults(uiState: ResultsUiState) {
             onValueChange = { selectedLoan = it;
                 calculatedYears = calculator.calculateYears(selectedIncome, selectedLoan, selectedInterest)
             },
-            valueRange = avgDebt.times(.5f) .. avgDebt.times(2f),
+            valueRange = avgDebt.times(.5f) .. avgDebt.times(5f),
             colors = SliderDefaults.colors(
                 thumbColor = cyan,
                 activeTrackColor = cyan,

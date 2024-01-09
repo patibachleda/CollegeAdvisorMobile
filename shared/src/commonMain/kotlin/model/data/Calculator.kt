@@ -27,7 +27,7 @@ class Calculator {
     }
 
     fun displayAdvice(years: Float): String{
-        return if (years > 5){
+        return if (years > 10){
             "Try to pick a more affordable college. This one seems a little too expensive for your degree type. Consider an in-state option!"
         } else{
             "This would be a great path for you!"
