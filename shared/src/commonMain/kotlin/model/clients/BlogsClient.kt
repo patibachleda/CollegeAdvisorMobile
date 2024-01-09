@@ -7,19 +7,18 @@ class BlogsClient {
         return listOf(
             Blog(
                 "https://static.wixstatic.com/media/f738fe_5c1214e215fc466f8901db7fa09a4bd2~mv2.gif",
-                "Student Debt",
-                "https://nces.ed.gov/fastfacts/display.asp?id=900"
-            ),
-            Blog(
-                "https://static.wixstatic.com/media/f738fe_5c1214e215fc466f8901db7fa09a4bd2~mv2.gif",
                 "Student Loan Debt Statistics",
                 "https://educationdata.org/student-loan-debt-statistics"),
             Blog(
                 "https://static.wixstatic.com/media/f738fe_5c1214e215fc466f8901db7fa09a4bd2~mv2.gif",
                 "2023 Student Loan Debt Statistics: Average Student Loan Debt",
                 "https://www.forbes.com/advisor/student-loans/average-student-loan-debt-statistics/"
-            )
-
+            ),
+            Blog(
+                "https://static.wixstatic.com/media/f738fe_5c1214e215fc466f8901db7fa09a4bd2~mv2.gif",
+                "Student Debt",
+                "https://nces.ed.gov/fastfacts/display.asp?id=900"
+            ),
         )
     }
     fun getBudgetingTips(): List<Blog> {
