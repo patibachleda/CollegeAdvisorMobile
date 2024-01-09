@@ -14,7 +14,7 @@ The app is made up of four main screens:
 
 3. The Results screen summarizes important financial information a student would need to decide about what university and degree would be best for them.
    
-5. The Favorites Screen allows the user to edit their name (that will display on this screen and the Home screen) and access their saved searches. The user can also remove favorites here. Clicking on the View More will load a Results screen from the selected school and major so the student can easily compare their options.
+5. The Favorites Screen allows the user to edit their name (that will display on this screen and the Home screen) and access their saved searches. The user can also remove favorites here. Clicking on the View More will load a Results screen from the selected school and major so the student can easily compare their options. Both the name and the favorites are saved on the device so they can be reaccessed when the app is closed.
 
 ## Architecture 
 This app's architecture follows the Model-ViewModel-Model Architecture to ensure that views do not handle state changes:
@@ -29,11 +29,11 @@ https://collegescorecard.ed.gov/data/documentation/
 
 |      Use      |     Source    |
 | ------------- | ------------- |
-|  Navigation  |    Voyager    |
-|  Data store  | com.russhwolf.settings  |
-|   Web View   | io.github.kevinnzou  |
+|  Navigation  |    adrielcafe’s Voyager    |
+|  Data store  | russhwolf's multiplatform-settings  |
+|   Web View   | kevinnzou's compose-webview-multiplatform |
 | HTTP Client/Serialization  | Ktor  |
-|   ViewModel  | dev.icerock.moko  |
+|   ViewModel  | IceRock's moko-mvvm  |
 
 ## Set up the environment
 
@@ -83,3 +83,6 @@ To do so, you'll need the following:
 
 * The `TEAM_ID` associated with your [Apple ID](https://support.apple.com/en-us/HT204316)
 * The iOS device registered in Xcode
+
+## License
+Apache 2.0
